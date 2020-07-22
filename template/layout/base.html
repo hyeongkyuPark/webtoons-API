@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>{{title}}</title>
+</head>
+<body>
+    <div class="container" style="padding-top:100px;">
+        <div class="container">
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+                        <ul class="nav navbar-nav">
+                            {% from "macro/link.html" import link %}
+                                {{link("/admin/products", "List", request_path )}}
+                                {{link("/admin/products/write", "Write", request_path )}}
+
+                            {# <li class="active"><a href="/admin/products">List</a></li>
+                            <li><a href="/admin/products/write">write</a></li> #}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- {% if isLogin %}
+                로그인 중
+                {% else %}
+                로그인이 안되어있습니다.
+                {% endif %} -->
+                
+                {% block content %}{% endblock %}
+                
+            </div>
+    </div>    
+</body>
+</html>

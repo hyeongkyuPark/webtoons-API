@@ -18,4 +18,6 @@ router.get('/title', ctrl.search_title);
 
 router.get('/weekDay', ctrl.search_weekDay);
 
+router.post('/one', ctrl.search_one);
+
 module.exports = router;

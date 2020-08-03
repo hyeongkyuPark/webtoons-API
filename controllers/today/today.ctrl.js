@@ -24,7 +24,7 @@ exports.getTodayToon = ((request, response) => {
                     bigImgAlt: $(this).find("bigImgAlt").text(),
                     thumb: $(this).find("thumb").text(),
                     thumbAlt: $(this).find("thumbAlt").text(),
-                    url: $(this).find("url").text(),
+                    url: 'https://comic.naver.com'+$(this).find("url").text(),
                     index: $(this).find("index").text(),
                     ageRate: $(this).find("ageRate").text(),
                     site: 'naver'

@@ -23,7 +23,9 @@ exports.search_all = ((request, response) => {
                     title: $(this).find('a.title').text(),
                     url: "https://comic.naver.com" + $(this).find('a.title').attr('href'),
                     imgUrl: $(this).find('div.thumb > a > img').attr('src'),
-                    weekDay: ($(this).find('a.title').attr('href')).slice(-3)
+                    weekDay: ($(this).find('a.title').attr('href')).slice(-3),
+                    checked: false,
+                    index: i
                 };
             });
 
@@ -57,7 +59,8 @@ exports.search_title = ((request, response) => {
                     title: $(this).find('a.title').text(),
                     url: "https://comic.naver.com" + $(this).find('a.title').attr('href'),
                     imgUrl: $(this).find('div.thumb > a > img').attr('src'),
-                    weekDay: ($(this).find('a.title').attr('href')).slice(-3)
+                    weekDay: ($(this).find('a.title').attr('href')).slice(-3),
+                    checked: false
                 };
             });
 
@@ -68,7 +71,7 @@ exports.search_title = ((request, response) => {
 });
 
 
-exports.search_weekDay = ((request, response) => {
+exports.search_weekDay = (async (request, response) => {
     const searchWeekDay = request.param('weekDay');
 
     const getHtml = async () => {
@@ -91,7 +94,8 @@ exports.search_weekDay = ((request, response) => {
                     title: $(this).find('a.title').text(),
                     url: "https://comic.naver.com" + $(this).find('a.title').attr('href'),
                     imgUrl: $(this).find('div.thumb > a > img').attr('src'),
-                    weekDay: ($(this).find('a.title').attr('href')).slice(-3)
+                    weekDay: ($(this).find('a.title').attr('href')).slice(-3),
+                    checked: false
                 };
             });
 
@@ -99,4 +103,30 @@ exports.search_weekDay = ((request, response) => {
             return data;
         })
         .then(res => response.send(res));
+});
+
+exports.search_one = ((request, response) => {
+    
+const getHtml = async () => {
+    try {
+        return await axios.get(request.body.url);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+getHtml()
+    .then(html => {
+        const $ = cheerio.load(html.data);
+        
+          let data = {
+                writer: $('.detail > h2 > span').text().replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣 |\/]/g, ''),
+                genre: $('.genre').text(),
+                age: $('.age').text(),
+                description: $('.detail > p').first().text()
+            };
+
+            return data;
+    })
+    .then(res => response.send(res));
 });

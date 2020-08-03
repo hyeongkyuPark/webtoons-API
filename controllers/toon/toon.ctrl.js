@@ -1,22 +1,18 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
+const getHtml = async (url) => {
+    return await axios.get(url);
+}
+
 exports.getNaverToon = ((request, response) => {
-    const getHtml = async () => {
-        try {
-            return await axios.get("https://comic.naver.com/webtoon/genre.nhn?genre=story");
-        } catch (error) {
-            console.error(error);
-        }
-    };
+   const url = "https://comic.naver.com/webtoon/genre.nhn?genre=story";
     
-    getHtml()
+    getHtml(url)
         .then(html => {
             let ulList = [];
             const $ = cheerio.load(html.data);
             const $bodyList = $("ul.img_list").children("li");
-    
-            
     
             $bodyList.each(function (i, elem) {
                 if(i >= 20) {
@@ -46,8 +42,8 @@ exports.getNaverToon = ((request, response) => {
 
 exports.getDaumToon = ((request, response) => {
     const url = 'http://webtoon.daum.net/data/pc/webtoon/list_average_score_ranking/serialized?timeStamp=1595373572483'
-            axios
-                .get(url)
+    
+    getHtml(url)
                 .then(res => {
                     const data = [];
                     for(let i=0; i<res.data.data.length; i++) {

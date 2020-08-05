@@ -20,4 +20,6 @@ router.get('/weekDay', ctrl.search_weekDay);
 
 router.post('/one', ctrl.search_one);
 
+router.get('/detail', ctrl.detail)
+
 module.exports = router;

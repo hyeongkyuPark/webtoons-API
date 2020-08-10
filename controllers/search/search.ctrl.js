@@ -144,7 +144,7 @@ exports.detail = (async (request, response) => {
                         thumb: $(this).find('td').first().find('img').attr('src'),
                         title: $(this).find('td.title > a').text(),
                         url: 'https://comic.naver.com' + $(this).find('td.title > a').attr('href'),
-                        data: $(this).find('td.num').text(),
+                        date: $(this).find('td.num').text(),
                         num: /\&[a-z | A-Z]*=(\d*)/g.exec('https://comic.naver.com' + $(this).find('td.title > a').attr('href'))[1]
                     });
                 });
